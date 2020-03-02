@@ -1,0 +1,55 @@
+
+
+
+
+
+
+
+element {
+    --colorA: #99004d;
+    --colorB: #ffcce6;
+}
+*{
+    box-sizing: border-box;
+}
+
+.navBar{
+    color:white;
+    font-size: 1.2rem;
+    padding-top: 8px;
+    margin-right: 50px;
+
+}
+.navbar{
+    padding: 0;
+}
+.navBar:focus {
+   background-color: #ede6c8;
+    color: #b1143b;
+}
+
+.img_navbar{
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+    background-color: var(--colorB);
+    border: 1px solid var(--colorA);
+    border-radius: 3px;
+    background-image: url("../images/fond_icon.png");
+}
+.col_text{
+    color: #99004d;
+}
+.volet{
+    border-radius: 5px;
+    border: 1px solid var(--colorA);
+    background-color: #e2ecf2;
+    margin-left: 10px;
+}
+.entet_col{
+    background-color: var(--colorA);
+}
+.accueil{
+    background-image: url("../images/fond1.jpg");
+    width: 100%;
+}

@@ -1,0 +1,194 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+    <div class="row">
+        {% if user is not empty %}
+
+
+        <div class="col-2">
+{# ______________________________________ implementation de volet gauche avec la liste des reso_______________________#}
+            <h4 class="col_text text-center">Bien venu {{ user.name }}</h4>
+            <div class="volet">
+                {% if cols == 0 %}
+                    <h5>Vous n'avez pas encore crée de Reso </h5>
+                {% else %}
+            {# ______________________________ création de la liste des reso de l'user_________________________________#}
+                    <h5 class="text-center">Liste de vos Reso </h5>
+
+                    <ul class="list-group">
+                        {% for col in cols %}
+                    {#  ____________________________ un lien qui donne un id a l'appéle de cette page__________________#}
+
+                            <a href="{{ path('index2', {'id': col.id })}}" class="text-decoration-none">
+                               <li class="list-group-item disabled" aria-disabled="true">{{ col.name }}</li>
+                            </a>
+                            <div>
+                                <a href="{{ path('app_college_editcol',{'id': col.id}) }}">
+                                    <button class="btn btn-primary float-right m-1" style="width: 30px; height: 30px; padding: 0">
+                                       <img src="{{ asset('images/edit-png-free-4.png') }}" alt="" style="width: 25px; height: 25px">
+                                    </button>
+                                </a>
+                                <a href="#">
+                                    <button class="btn btn-primary float-right m-1" style="width: 30px; height: 30px; padding: 0">
+                                        <img src="{{ asset('images/unnamed.png') }}" alt="" style="width: 25px; height: 25px">
+                                    </button>
+                                </a>
+                            </div>
+
+
+
+{#                                <a href="{{ path('app_college_editcol',{'id': col.id}) }}">#}
+
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+{#___________________ implementation de la partie central avec les donné du collége passé dans l'id _________________#}
+        <div class="col-9">
+            {% for message in app.session.flashBag.get('error') %}
+                <div class="alert alert-danger m-1">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            <div class="volet m-1" style="padding-bottom: 50px">
+                {% if college is not null %}
+
+
+                <h6 class="m-2">Nom du Reso : {{ college.name }}</h6>
+                <div class="row border" style="padding: 5px; margin: 5px">
+                    <div class="col-6">
+                    <p>L'image de presentation de votre collège</p>
+                    <br>
+                    <img src="{{ asset('/images/' ~  college.image ) }}" alt="..." class="img-thumbnail" style="width: 400px">
+                    <br>
+                    </div>
+                    <div class="col-6">
+                    <p>Adresse  :</p>
+
+                    <h5> {{ college.adresse }}</h5>
+                    <br>
+                    <p>Ville  :</p>
+
+                    <h5>  {{ college.ville }}</h5>
+                    <br>
+                    <p>Le Nom de l'administrateur  :</p>
+
+                    <h5> {{ college.user.name }}</h5>
+                    <br>
+                    <p>Votre presentation  :</p>
+
+                    <h5> {{ college.presentation }}</h5>
+                    </div>
+
+                </div>
+{#  _________________________charger le fichier éléve et prof  _________________________________________________________________________#}
+                    <div class="row border" style="padding: 5px; margin: 5px">
+                       {#___ verifier si la iste a déja était chargée ____#}
+                        {% if eleves|length <= 0 %}
+                            {#___ si y a pas de liste éléve affiche le formulaire upload csv  ____#}
+                            <form action="{{ path('app_college_upload_eleves',{ 'id': college.id }) }}"  method="post" enctype="multipart/form-data">
+                                <p>Telecharger votre fichier éléves en format CSV , il doit avoir la forme suivante : </p>
+
+                                <p> Nom ; prenom ; email ; classe </p>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="file" name="fichier" required>
+                                    <label class="custom-file-label" for="file">Choose file...</label>
+                                    <div class="invalid-feedback">Example invalid custom file feedback</div>
+                                    <button class="btn btn-primary m-2" type="submit">Enregistrer la liste des éleves</button>
+
+                                    {#                                <button class="btn btn-primary m-2" type="submit">Enregistrer la liste des éleves</button>#}
+                                </div>
+
+
+                            </form>
+
+                        {% else %}
+                            {#___ si le liste existe affiche le btn voir la liste ____#}
+                            <p style="margin: 0;padding-top: 10px">Voir la liste des éléves</p>
+                            <a href="{{ path('app_liste_index',{ 'id': college.id }) }}"><button class="btn btn-primary m-2" type="submit">Voir la liste des éléves</button></a>
+
+                        {% endif %}
+
+                    </div>
+{#___________________________ charger le liste de sprofesseurs _________________________________________________________#}
+
+                    <div class="row border" style="padding: 5px; margin: 5px">
+                        {#___ verifier si la iste a déja était chargée ____#}
+                        {% if profs|length <= 0 %}
+                            {#___ si y a pas de liste éléve affiche le formulaire upload csv  ____#}
+                            <form action="{{ path('app_college_upload_profs',{ 'id': college.id }) }}"  method="post" enctype="multipart/form-data">
+                                <p>Telecharger votre fichier éléves en format CSV , il doit avoir la forme suivante : </p>
+
+                                <p> Nom ; prenom ; email ; filière </p>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="file" name="fichier" required>
+                                    <label class="custom-file-label" for="file">Choose file...</label>
+                                    <div class="invalid-feedback">Example invalid custom file feedback</div>
+                                    <button class="btn btn-primary m-2" type="submit">Enregistrer la liste des éleves</button>
+
+                                    {#                                <button class="btn btn-primary m-2" type="submit">Enregistrer la liste des éleves</button>#}
+                                </div>
+
+
+                            </form>
+
+                        {% else %}
+                            {#___ si le liste existe affiche le btn voir la liste ____#}
+                            <p style="margin: 0;padding-top: 10px">Voir la liste des éléves</p>
+                            <a href="{{ path('app_liste_index2',{ 'id': college.id }) }}"><button class="btn btn-primary m-2" type="submit">Voir la liste des Professeurs</button></a>
+
+                        {% endif %}
+
+                    </div>
+
+
+
+
+
+
+
+
+
+                <div class="row border" style="padding: 5px; margin: 5px">
+                    <div>
+                        <h4>Statistique</h4>
+
+                        <div>
+                            <p>Nembre d'éléves inscrit :</p>
+
+                        </div>
+                        <div>
+                            <p>Nembre de postes  :</p>
+
+                        </div>
+                        <div>
+                            <p>Nembre compagne pub :</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                {% endif %}
+
+            </div>
+        </div>
+
+
+
+
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+
+

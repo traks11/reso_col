@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CollegeController!{% endblock %}
+
+{% block body %}
+    <div class="ajouterposte" style="margin: 20px">
+
+        <div class="container">
+            <h3 style="color: #99004d">Créez votre reso</h3>
+            {{ form_start(form) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.adresse) }}
+            {{ form_row(form.cp) }}
+            {{ form_row(form.ville) }}
+            {{ form_row(form.presentation) }}
+            {{ form_row(form.image) }}
+
+
+
+
+            <div class="text-right">
+                <button class="btn btn-primary" type="submit">Enregistrer</button>
+            </div>
+
+            {{ form_end(form) }}
+
+
+
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class=" m-2" style="border: solid 1px #cbcbcb;padding: 5px">
+
+            <nav class="navbar navbar-expand-lg navbar-light ">
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        {#                        -------- liste des classe pour trie --------------------#}
+
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Trier par Filière
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                {% for classe in  liste_class %}
+                                    <a class="dropdown-item" href="{{ path('app_liste_listeparfiliere', {'id': id_college,'filiere': classe.classe })}}">{{ classe.classe }}</a>
+                                {% endfor %}
+                            </div>
+                        </li>
+
+
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
+            </nav>
+        </div>
+
+
+        <table class="table m-2 ">
+            <thead >
+            <tr class="thead-dark">
+                <th scope="col" >ID</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prenom</th>
+                <th scope="col">Mail</th>
+                <th scope="col">Pseudo</th>
+                <th scope="col">Filière</th>
+                <th scope="col">classe respensable</th>
+                <th scope="col">Modifier</th>
+
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for eleve in liste_eleves %}
+                <tr>
+
+                    <td>{{ eleve.id }}</td>
+                    <td>{{ eleve.nom }}</td>
+                    <td>{{ eleve.prenom }}</td>
+                    <td>{{ eleve.email }}</td>
+                    <td>{{ eleve.pseudo }}</td>
+                    <td>{{ eleve.classe }}</td>
+                    <td>{{ eleve.niveau }}</td>
+                    <td>
+                        <button class="btn  float-right m-1" style="width: 30px; height: 30px; padding: 0">
+                            <img src="{{ asset('images/edit-pngG.png') }}" alt="" style="width: 25px; height: 25px">
+                        </button>
+                        <button class="btn  float-right m-1" style="width: 30px; height: 30px; padding: 0">
+                            <img src="{{ asset('images/unnamedG.png') }}" alt="" style="width: 25px; height: 25px">
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
+
+
+

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row m-2">
+            <div class="col-8">
+                {{ form_start(form) }}
+                <div class="text-right">
+                    <button class="btn btn-primary" type="submit">Enregistrer</button>
+                </div>
+                {{ form_end(form) }}
+
+            </div>
+
+            <div class="col-4">
+                <h5>Image actuel de votre reso </h5>
+
+                <img src="{{ asset('/images/' ~  image ) }}" alt="..." class="img-thumbnail">
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+

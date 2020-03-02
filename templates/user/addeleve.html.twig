@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container p-0">
+
+        <div class=" m-2" style="border: solid 1px #cbcbcb;padding: 5px; background-color: #c4bec8">
+            <div class="btn-group" role="group" aria-label="Basic example">
+
+
+
+                       <h3> <img src="{{ asset('images/add_user2.png') }}" alt=""
+                             style="width: 30px;margin-right: 5px; padding-bottom: 10px">Ajouter élève </h3>
+
+
+
+
+            </div>
+        </div>
+        <div class="row m-0">
+            <div class="col-8 p-0">
+                {{ form_start(form) }}
+                {{ form_row(form.nom) }}
+                {{ form_row(form.Prenom) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.classe) }}
+                {{ form_row(form.niveau) }}
+
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary">
+                        Enregistrer
+                    </button>
+
+                </div>
+                {{ form_end(form) }}
+            </div>
+            <div class="col-4">
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
